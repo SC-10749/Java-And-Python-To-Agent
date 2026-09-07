@@ -1,0 +1,4 @@
+1.String StringBuffer StringBuilder的区别
+  ● String底层被 final 修饰的字符数组实现，不可变；每次拼接、修改都会生成新字符串对象，频繁操作大量产生垃圾，效率最低。
+  ● StringBuffer方法带有 synchronized 同步锁，线程安全；多线程场景使用，有锁竞争开销，效率中等。
+  ● StringBuilder无 synchronized、线程不安全；无同步开销，效率最高；二者初始默认容量都为 16。
