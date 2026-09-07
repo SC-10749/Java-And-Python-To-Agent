@@ -5,3 +5,13 @@ target/
 *.tmp
 .DS_Store
 logs/
+frontend/node_modules/
+frontend/dist/
+frontend/.edge-profile*/
+frontend/dashboard-*.png
+
+# Local configuration and secrets
+.env
+.env.*
+!*.example
+src/main/resources/application-local.yml
