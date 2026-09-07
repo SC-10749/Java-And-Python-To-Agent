@@ -1,0 +1,135 @@
+spring:
+  application:
+    name: ad-platform
+  profiles:
+    active: dev
+
+  # MySQL 业务数据库
+  datasource:
+    url: jdbc:mysql://124.223.92.65:3316/ad_platform?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+    username: root
+    password: SongCheng1006
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  # JPA 基础配置
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+
+  # JSON 时间格式
+  jackson:
+    time-zone: Asia/Shanghai
+    date-format: yyyy-MM-dd HH:mm:ss
+
+  # Redis：缓存、分布式锁和业务幂等
+  data:
+    redis:
+      host: 124.223.92.65
+      port: 6389
+      password: SongCheng1006
+      database: 0
+
+  # Neo4j 图数据库
+  neo4j:
+    uri: bolt://124.223.92.65:7697
+    authentication:
+      username: neo4j
+      password: SongCheng1006
+
+  # Elasticsearch 8.15.3
+  # 当前实例未对外映射，9200 仅作为待确认的默认占位端口
+  elasticsearch:
+    uris: http://124.223.92.65:9200
+    username: elastic
+    password: ${ES_PASSWORD:}
+
+server:
+  port: 8080
+
+logging:
+  level:
+    com.example.adplatform: debug
+
+# 应用自定义基础设施配置，业务代码可通过 @ConfigurationProperties 读取
+app:
+  infra:
+    host: 124.223.92.65
+
+    # MySQL 业务数据库
+    mysql:
+      port: 3316
+      database: ad_platform
+      username: root
+      password: SongCheng1006
+      remark: business database
+
+    # PostgreSQL + pgvector 向量数据库
+    postgresql:
+      url: jdbc:postgresql://124.223.92.65:5432/postgres
+      port: 5432
+      database: postgres
+      username: admin
+      password: admin123
+      remark: pg vector database
+
+    # Redis 5
+    redis:
+      port: 6389
+      password: SongCheng1006
+      remark: startup flag --requirepass
+
+    # Neo4j 图数据库
+    neo4j:
+      web-port: 7484
+      bolt-port: 7697
+      username: neo4j
+      password: SongCheng1006
+      remark: graph database
+
+    # 业务 MinIO 和 Milvus 内置 MinIO
+    minio:
+      business:
+        endpoint: http://124.223.92.65:9000
+        console-endpoint: http://124.223.92.65:9001
+        access-key: minioadmin
+        secret-key: minioadmin123
+        remark: business object storage
+      milvus:
+        endpoint: http://124.223.92.65:9010
+        console-endpoint: http://124.223.92.65:9011
+        access-key: SongCheng1006
+        secret-key: SongCheng1006
+        remark: milvus internal object storage
+
+    # RocketMQ Dashboard、NameServer 和 Broker
+    rocketmq:
+      dashboard: http://124.223.92.65:8100
+      namesrv: 124.223.92.65:10919
+      broker: ${ROCKETMQ_BROKER:124.223.92.65:10911}
+      other-ports: "10919等，按实际部署情况补充"
+      username: SongCheng1006
+      password: SongCheng1006
+      remark: dashboard and mq service
+
+    # Milvus 向量数据库
+    milvus:
+      host: 124.223.92.65
+      port: 19540
+      remark: vector database
+
+    # Ollama 大模型推理服务
+    ollama:
+      base-url: http://124.223.92.65:11444
+      remark: inference service
+
+    # Elasticsearch，密码待容器修复后从日志获取
+    elasticsearch:
+      host: 124.223.92.65
+      port: 9200
+      username: elastic
+      password: ${ES_PASSWORD:}
+      remark: password to be filled after checking the container logs
