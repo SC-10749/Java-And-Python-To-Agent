@@ -1,4 +1,4 @@
-﻿# AdGrowth Platform
+# AdGrowth Platform
 
 面向广告获客、用户增长和客服运营的开源项目。包含 Vue 3 管理端与用户端，以及 Spring Boot + MySQL 后端基础能力。
 
